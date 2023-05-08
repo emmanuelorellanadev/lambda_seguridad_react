@@ -19,46 +19,46 @@ export const Login = () => {
             alert('Complete los campos');
         }else{
             
-            const url = 'http://localhost:8080/security/login';
+            const url = 'http://localhost:8080/auth';
            
-            // axios.post(url, { 'name': txtusu, 'pass': txtpas})
-            // .then(res => { procSesion(res.data) })
-            // .catch( (e) => {
-            //     if(e.response){
-            //         console.log(e.response.data);
-            //         console.log(e.response.status);
-            //         // console.log(e.response.header);
-            //         // console.log(e.toJSON())
-            //     }
-
-            //     alert('Intentalo de nuevo');
-            //     cleanAll();
-            // } )
-            
-            fetch (url, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: {
-                    name: txtusu,
-                    pass: txtpas
+            axios.post(url, { 'name': txtusu, 'pass': txtpas})
+            .then(res => { procSesion(res.data) })
+            .catch( (e) => {
+                if(e.response){
+                    console.log(e.response.data);
+                    console.log(e.response.status);
+                    // console.log(e.response.header);
+                    // console.log(e.toJSON())
                 }
-            })
-                .then( resp => resp.json() )
-                .then( resp => {
-                    console.log(resp)
-                })
-        }
 
+                alert('Intentalo de nuevo');
+                cleanAll();
+            } )
+            
+        //     fetch (url, {
+        //         method: 'POST',
+        //         headers: {
+        //             'Content-Type': 'application/json'
+        //         },
+        //         body: {
+        //             name: txtusu,
+        //             pass: txtpas
+        //         }
+        //     })
+        //         .then( resp => resp.json() )
+        //         .then( resp => {
+        //             console.log(resp)
+        //         })
+
+        }
     }
 
     const procSesion = ( sessionData ) => {
         console.log('no obtiene resultados del backend');
-        console.log(procSesion.data);
-        sessionData.sessionStatus 
-            ? console.log('session complete')
-            : console.log('session failed')
+        console.log(sessionData);
+        sessionData ? console.log('todo OK')
+                    : console.log('todo MAL');;
+        
     }
 
     const cleanAll = () => {
