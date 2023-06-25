@@ -5,7 +5,7 @@ export const Estadistica = () => {
         <div className='bg-light' style={{ marginTop: 20, padding: 20}}>
             
             <div className='h3'>
-                Resumen Estatico
+                Estadistica de Usuarios
             </div>
 
             <div className='table-responsive'>
@@ -13,7 +13,7 @@ export const Estadistica = () => {
                     <div className='col'>
                         <div className='card'>
                             <div className='card-body'>
-                                <h5>Cantidad de Pinturas</h5>
+                                <h5>Cantidad de Usuarios</h5>
                                 <p className='card-text'> TEXTO A REEMPLAZAR</p>
                             </div>
                         </div>
@@ -21,7 +21,7 @@ export const Estadistica = () => {
                     <div className='col'>
                         <div className='card'>
                             <div className='card-body'>
-                                <h5 className='card-title'>Suma de Precios</h5>
+                                <h5 className='card-title'>Usuarios Activos</h5>
                                 <p className='card-text'>TEXTO A REEMPLAZAR</p>
                             </div>
                         </div>
@@ -29,7 +29,7 @@ export const Estadistica = () => {
                     <div className='col'>
                         <div className='card'>
                             <div className='card-body'>
-                                <h5 className='card-title'>Promedio de Precios</h5>
+                                <h5 className='card-title'>Usuarios Inactivos</h5>
                                 <p className='card-text'>TEXTO A REEMPLAZAR</p>
                             </div>
                         </div>
