@@ -1,13 +1,17 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
+import { EditarUsuario } from './EditarUsuario';
+import { Menu } from './Menu';
+
+const url = 'http://localhost:8080/user'
 
 export const Listar = () => {
     const [usuarios, setUsuarios] = useState([]);
+    const [editarUsuario, setEditarUsuario] = useState(0);
 
     
     const recuperaUsuarios = async() => {
-        const url = 'http://localhost:8080/user'
-        
+
         await axios.get(url, {
             headers: { "x-token": sessionStorage.getItem('lambdaToken') }
         })
@@ -20,11 +24,21 @@ export const Listar = () => {
     }, [])
 
     const editaUsuario = (idUsuario) => {
-        alert(`Editar usuario ${idUsuario}`);
+        console.log('cambia a edicion ', idUsuario);
+        setEditarUsuario(idUsuario);
     }
 
-    const eliminarUsuario = (idUsuario) => {
-        alert(`Eliminar usuario ${idUsuario}`);
+    const eliminarUsuario = async(idUsuario, nombreUsuario) => {
+        
+        if (window.confirm(`Seguro que desea eliminar el usuario ${nombreUsuario}`)) {
+
+            await axios.delete(url, {data: {"id": idUsuario}} )  
+            .then( () => alert(`Usuario ${nombreUsuario} eliminado correctamente`) )
+            .catch( error => console.log(error))
+            
+            recuperaUsuarios();
+        }
+
     }
 
     return (
@@ -54,17 +68,17 @@ export const Listar = () => {
                                         <th>{usuario.RoleId}</th>
                                         <th><input type='checkbox' checked={usuario.user_status} disabled/></th>
                                         <th><button className='btn btn-primary' type="button" onClick={ () => editaUsuario( usuario.id ) }>Editar</button></th>
-                                        <th><button className='btn btn-outline-danger' onClick={() => {eliminarUsuario(usuario.id)}}><i className='bi bi-trash3-fill'></i></button></th>
+                                        <th><button className='btn btn-outline-danger' onClick={() => {eliminarUsuario(usuario.id, usuario.user_name)}}><i className='bi bi-trash3-fill'></i></button></th>
                                     </tr>)
                                 })
 
-                                
                             }
                         </tbody>
                     </table>
                 </div>
                 
             </div>
+            {editarUsuario != 0 && <Menu ediUsu={editarUsuario} usu={sessionStorage.getItem('userLambda')}/>}
         </>
     )
 }

@@ -1,19 +1,21 @@
-import React, { useState} from 'react';
+import React, { useEffect, useState} from 'react';
 import { NavLink } from 'react-router-dom';
 import axios from 'axios';
 
 import {Registrar} from './Registrar';
 import {Listar} from './Listar';
 import {Estadistica} from './Estadistica';
+import { EditarUsuario } from './EditarUsuario';
 
 
 export const Menu = (props) => {
 
     const [roles, setRoles] = useState([])
 
-    const [reg, setReg] = useState('');
-    const [lis, setLis] = useState('');
-    const [est, setEst] = useState('');
+    const [reg, setReg] = useState('0');
+    const [lis, setLis] = useState('0');
+    const [est, setEst] = useState('0');
+    const [edi, setEdi] = useState('0');
 
   const cerrarSesion = () => {
     sessionStorage.removeItem('lambdaToken');
@@ -25,23 +27,40 @@ export const Menu = (props) => {
     document.getElementById("txtusu").focus();
   }
 
-  const op_registrar = async() => {
+  const op_registrar = () => {
     setReg('1');
     setLis('0')
     setEst('0')
+    setEdi('0')
   }
 
   const op_listar = () => {
     setReg('0');
     setLis('1')
     setEst('0')
+    setEdi('0')
   }
 
   const op_estadistica = () => {
     setReg('0');
     setLis('0')
     setEst('1')
+    setEdi('0')
   }
+
+  const op_edita = () => {
+    setReg('0');
+    setLis('0')
+    setEst('0')
+    setEdi('1')
+  }
+
+  // useEffect(() =>{
+  //   if(props.ediUsu){
+  //     op_edita();
+  //   }
+
+  // }, [])
 
     return (
         <>
@@ -64,6 +83,8 @@ export const Menu = (props) => {
                             <NavLink to='' className='nav-link h5 text-center' onClick={ op_registrar }>Registrar</NavLink>
                             <NavLink to='' className='nav-link h5 text-center' onClick={ op_listar }>Listar</NavLink>
                             <NavLink to='' className='nav-link h5 text-center'onClick={ op_estadistica }>Estadistica</NavLink>
+                            <NavLink to='' className='nav-link h5 text-center'onClick={ op_edita }>Editar</NavLink>
+                            
                             <div><a className='nav-link h5 text-center' style={{color: 'blue'}} href=" " onClick={cerrarSesion}>Cerrar Sesion</a></div>
                         </div>
                     </div>
@@ -74,6 +95,7 @@ export const Menu = (props) => {
         { reg === '1' && <Registrar /> }
         { lis === '1' && <Listar /> } 
         { est === '1' && <Estadistica/> }
+        { edi === '1' && <EditarUsuario id={props.ediUsu}/> }
         </>
     )
 }
